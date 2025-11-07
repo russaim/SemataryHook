@@ -31,7 +31,13 @@ void CMenu::DrawMenu()
 		float flSideSize = 140.f;
 
 		PushClipRect({ 0, 0 }, { ImGui::GetIO().DisplaySize.x, ImGui::GetIO().DisplaySize.y }, false);
-		RenderTwoToneBackground(H::Draw.Scale(flSideSize), F::Render.Background0, F::Render.Background1, F::Render.Background2, 0.f, false);
+		GetWindowDrawList()->AddRectFilled(vWindowPos, vWindowPos + vWindowSize, ImGui::GetColorU32({ 0.f, 0.f, 0.f, 1.f }));
+		GetWindowDrawList()->AddRectFilled(vWindowPos + ImVec2(1, 1), vWindowPos + vWindowSize - ImVec2(1, 1), ImGui::GetColorU32({ 0.207f, 0.207f, 0.207f, 1.f }));
+		GetWindowDrawList()->AddRectFilled(vWindowPos + ImVec2(2, 2), vWindowPos + vWindowSize - ImVec2(2, 2), ImGui::GetColorU32({ 0.109f, 0.109f, 0.109f, 1.f }));
+		GetWindowDrawList()->AddRectFilled(vWindowPos + ImVec2(4, 4), vWindowPos + vWindowSize - ImVec2(4, 4), ImGui::GetColorU32({ 0.207f, 0.207f, 0.207f, 1.f }));
+		GetWindowDrawList()->AddRectFilled(vWindowPos + ImVec2(5, 5), vWindowPos + vWindowSize - ImVec2(5, 5), ImGui::GetColorU32({ 0.f, 0.f, 0.f, 1.f }));
+		RenderTwoToneBackground(H::Draw.Scale(flSideSize), F::Render.Background0, F::Render.Background1, F::Render.Background2, 5.f, false);
+		GetWindowDrawList()->AddRectFilledMultiColor(vWindowPos + ImVec2(5, 5), vWindowPos + ImVec2(vWindowSize.x, 6) - ImVec2(5, 0), ImGui::GetColorU32({ 1, 0, 0, 1 }), ImGui::GetColorU32({ 1, 1, 1, 1 }), ImGui::GetColorU32({ 1, 1, 1, 1 }), ImGui::GetColorU32({ 1, 0, 0, 1 }));
 		PopClipRect();
 
 		ImVec2 vDrawPos = GetDrawPos();
@@ -1901,7 +1907,7 @@ void CMenu::MenuLogs(int iTab)
 						fStream.close();
 
 						SDK::SetClipboard(sString);
-						SDK::Output("Amalgam", "Copied playerlist to clipboard", { 175, 150, 255 }, OUTPUT_CONSOLE | OUTPUT_DEBUG | OUTPUT_TOAST | OUTPUT_MENU);
+						SDK::Output("SemataryHook", "Copied playerlist to clipboard", { 255, 0, 0 }, OUTPUT_CONSOLE | OUTPUT_DEBUG | OUTPUT_TOAST | OUTPUT_MENU);
 					}
 				}
 
@@ -2002,7 +2008,7 @@ void CMenu::MenuLogs(int iTab)
 						}
 						catch (...)
 						{
-							SDK::Output("Amalgam", "Failed to import playerlist", { 175, 150, 255, 127 }, OUTPUT_CONSOLE | OUTPUT_DEBUG | OUTPUT_TOAST | OUTPUT_MENU);
+							SDK::Output("SemataryHook", "Failed to import playerlist", { 255, 0, 0, 127 }, OUTPUT_CONSOLE | OUTPUT_DEBUG | OUTPUT_TOAST | OUTPUT_MENU);
 						}
 					}
 
@@ -2063,7 +2069,7 @@ void CMenu::MenuLogs(int iTab)
 							}
 
 							F::PlayerUtils.m_bSave = true;
-							SDK::Output("Amalgam", "Imported playerlist", { 175, 150, 255 }, OUTPUT_CONSOLE | OUTPUT_DEBUG | OUTPUT_TOAST | OUTPUT_MENU);
+							SDK::Output("SemataryHook", "Imported playerlist", { 255, 0, 0 }, OUTPUT_CONSOLE | OUTPUT_DEBUG | OUTPUT_TOAST | OUTPUT_MENU);
 
 							CloseCurrentPopup();
 						}
@@ -2094,11 +2100,11 @@ void CMenu::MenuLogs(int iTab)
 							F::Configs.m_sCorePath + std::format("Backup{}.json", iBackupCount + 1),
 							std::filesystem::copy_options::overwrite_existing
 						);
-						SDK::Output("Amalgam", "Saved backup playerlist", { 175, 150, 255 }, OUTPUT_CONSOLE | OUTPUT_DEBUG | OUTPUT_TOAST | OUTPUT_MENU);
+						SDK::Output("SemataryHook", "Saved backup playerlist", { 255, 0, 0 }, OUTPUT_CONSOLE | OUTPUT_DEBUG | OUTPUT_TOAST | OUTPUT_MENU);
 					}
 					catch (...)
 					{
-						SDK::Output("Amalgam", "Failed to backup playerlist", { 175, 150, 255, 127 }, OUTPUT_CONSOLE | OUTPUT_DEBUG | OUTPUT_TOAST | OUTPUT_MENU);
+						SDK::Output("SemataryHook", "Failed to backup playerlist", { 255, 0, 0, 127 }, OUTPUT_CONSOLE | OUTPUT_DEBUG | OUTPUT_TOAST | OUTPUT_MENU);
 					}
 				}
 			}
@@ -3482,6 +3488,41 @@ struct BindInfo_t
 	int iBind;
 	Bind_t& tBind;
 };
+void CMenu::DrawWatermark()
+{
+	using namespace ImGui;
+	if (!(Vars::Menu::Indicators.Value & Vars::Menu::IndicatorsEnum::Watermark) || !I::EngineClient->IsInGame())
+		return;
+
+	ImGui::PushFont(F::Render.FontExtraLarge);
+	ImVec2 text_size = ImGui::CalcTextSize("semataryhook");
+
+	ImVec2 size = { text_size.x + 20, text_size.y + 10 };
+
+	ImGui::SetNextWindowSize(size);
+	ImGui::Begin("Watermark", nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoFocusOnAppearing);
+	ImVec2 windowPos = ImGui::GetWindowPos();
+
+	ImDrawList* drawlist = ImGui::GetWindowDrawList();
+
+	drawlist->AddRectFilled(windowPos, windowPos + size, ImGui::GetColorU32({ 0.f, 0.f, 0.f, 1.f }));
+	drawlist->AddRectFilled(windowPos + ImVec2(1, 1), windowPos + size - ImVec2(1, 1), ImGui::GetColorU32({ 0.207f, 0.207f, 0.207f, 1.f }));
+	drawlist->AddRectFilled(windowPos + ImVec2(2, 2), windowPos + size - ImVec2(2, 2), ImGui::GetColorU32({ 0.109f, 0.109f, 0.109f, 1.f }));
+	drawlist->AddRectFilled(windowPos + ImVec2(4, 4), windowPos + size - ImVec2(4, 4), ImGui::GetColorU32({ 0.207f, 0.207f, 0.207f, 1.f }));
+	drawlist->AddRectFilled(windowPos + ImVec2(5, 5), windowPos + size - ImVec2(5, 5), ImGui::GetColorU32({ 0.f, 0.f, 0.f, 1.f }));
+
+	drawlist->AddRectFilledMultiColor(windowPos + ImVec2(5, 5), windowPos + ImVec2(size.x, 6) - ImVec2(5, 0), ImGui::GetColorU32({ 1, 0, 0, 1 }), ImGui::GetColorU32({ 1, 1, 1, 1 }), ImGui::GetColorU32({ 1, 1, 1, 1 }), ImGui::GetColorU32({ 1, 0, 0, 1 }));
+
+	ImVec2 first_size = ImGui::CalcTextSize("Sematary");
+	drawlist->AddText(windowPos + ImVec2(5, 5), ImGui::GetColorU32({ 1,1,1,1 }), "Sematary");
+	drawlist->AddText(windowPos + ImVec2(5, 5) + ImVec2(first_size.x, 0), ImGui::GetColorU32({ 1,0,0,1 }), "Hook");
+
+	ImGui::End();
+	ImGui::PopFont();
+}
+
+
+
 void CMenu::DrawBinds()
 {
 	using namespace ImGui;
@@ -3581,9 +3622,11 @@ void CMenu::DrawBinds()
 		ImVec2 vWindowPos = GetWindowPos();
 
 		if (Vars::Menu::BindWindowTitle.Value)
-			RenderTwoToneBackground(H::Draw.Scale(28), F::Render.Background0, F::Render.Background0p5, F::Render.Background2);
-		else
-			RenderBackground(F::Render.Background0p5, F::Render.Background2);
+GetWindowDrawList()->AddRectFilled(vWindowPos, vWindowPos + ImVec2(flWidth, flHeight), ImGui::GetColorU32({0.f, 0.f, 0.f, 1.f}));
+GetWindowDrawList()->AddRectFilled(vWindowPos + ImVec2(1, 1), vWindowPos + ImVec2(flWidth, flHeight) - ImVec2(1, 1), ImGui::GetColorU32({ 0.207f, 0.207f, 0.207f, 1.f }));
+GetWindowDrawList()->AddRectFilled(vWindowPos + ImVec2(2, 2), vWindowPos + ImVec2(flWidth, flHeight) - ImVec2(2, 2), ImGui::GetColorU32({ 0.109f, 0.109f, 0.109f, 1.f }));
+GetWindowDrawList()->AddRectFilled(vWindowPos + ImVec2(4, 4), vWindowPos + ImVec2(flWidth, flHeight) - ImVec2(4, 4), ImGui::GetColorU32({ 0.207f, 0.207f, 0.207f, 1.f }));
+GetWindowDrawList()->AddRectFilled(vWindowPos + ImVec2(5, 5), vWindowPos + ImVec2(flWidth, flHeight) - ImVec2(5, 5), ImGui::GetColorU32({ 0.f, 0.f, 0.f, 1.f }));
 
 		tDragBox.x = vWindowPos.x; tDragBox.y = vWindowPos.y; tOld = tDragBox;
 		if (m_bIsOpen)
@@ -3592,13 +3635,12 @@ void CMenu::DrawBinds()
 		int iListStart = 8;
 		if (Vars::Menu::BindWindowTitle.Value)
 		{
-			SetCursorPos({ H::Draw.Scale(8), H::Draw.Scale(6) });
-			IconImage(ICON_MD_KEYBOARD);
 			PushFont(F::Render.FontLarge);
-			SetCursorPos({ H::Draw.Scale(30), H::Draw.Scale(7) });
+			SetCursorPos({ H::Draw.Scale(11), H::Draw.Scale(14) });
 			FText("Binds");
 			PopFont();
-
+			GetWindowDrawList()->AddRectFilledMultiColor(vWindowPos + ImVec2(5, 5), vWindowPos + ImVec2(flWidth, 6) - ImVec2(5, 0), ImGui::GetColorU32({ 1, 0, 0, 1 }), ImGui::GetColorU32({ 1, 1, 1, 1 }), ImGui::GetColorU32({ 1, 1, 1, 1 }), ImGui::GetColorU32({ 1, 0, 0, 1 }));
+			//GetWindowDrawList()->AddRectFilled({ vWindowPos.x + H::Draw.Scale(8), vWindowPos.y + H::Draw.Scale(26) }, { vWindowPos.x + flWidth - H::Draw.Scale(8), vWindowPos.y + H::Draw.Scale(27) }, F::Render.Accent, H::Draw.Scale(3));
 			iListStart = 36;
 		}
 
@@ -3725,6 +3767,7 @@ void CMenu::Render()
 	PushFont(F::Render.FontRegular);
 
 	DrawBinds();
+	DrawWatermark();
 	if (m_bIsOpen)
 	{
 		ManageVars();
@@ -3737,6 +3780,7 @@ void CMenu::Render()
 		AddDraggable("Conditions", Vars::Menu::ConditionsDisplay, FGet(Vars::Menu::Indicators) & Vars::Menu::IndicatorsEnum::Conditions);
 		AddDraggable("Seed prediction", Vars::Menu::SeedPredictionDisplay, FGet(Vars::Menu::Indicators) & Vars::Menu::IndicatorsEnum::SeedPrediction);
 		AddResizableDraggable("Camera", Vars::Visuals::Simulation::ProjectileWindow, FGet(Vars::Visuals::Simulation::ProjectileCamera));
+		AddDraggable("Watermark", Vars::Menu::Watermark, FGet(Vars::Menu::Indicators) & Vars::Menu::IndicatorsEnum::Watermark);
 
 		F::Render.Cursor = GetMouseCursor();
 		m_bWindowHovered = IsWindowHovered(ImGuiHoveredFlags_AnyWindow | ImGuiHoveredFlags_AllowWhenBlockedByPopup | ImGuiHoveredFlags_AllowWhenBlockedByActiveItem);

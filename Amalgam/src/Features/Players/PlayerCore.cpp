@@ -73,11 +73,11 @@ void CPlayerlistCore::SavePlayerlist()
 		write_json(F::Configs.m_sCorePath + "Players.json", tWrite);
 
 		F::PlayerUtils.m_bSave = false;
-		SDK::Output("Amalgam", "Saved playerlist", { 175, 150, 255 }, OUTPUT_CONSOLE | OUTPUT_DEBUG | OUTPUT_TOAST | OUTPUT_MENU);
+		SDK::Output("SemataryHook", "Saved playerlist", { 255, 0, 0 }, OUTPUT_CONSOLE | OUTPUT_DEBUG | OUTPUT_TOAST | OUTPUT_MENU);
 	}
 	catch (...)
 	{
-		SDK::Output("Amalgam", "Save playerlist failed", { 175, 150, 255, 127 }, OUTPUT_CONSOLE | OUTPUT_DEBUG);
+		SDK::Output("SemataryHook", "Save playerlist failed", { 255, 0, 0, 127 }, OUTPUT_CONSOLE | OUTPUT_DEBUG);
 	}
 }
 
@@ -102,10 +102,10 @@ void CPlayerlistCore::LoadPlayerlist()
 		F::PlayerUtils.m_vTags = {
 			{ "Default", { 200, 200, 200, 255 }, 0, false, false, true },
 			{ "Ignored", { 200, 200, 200, 255 }, -1, false, true, true },
-			{ "Cheater", { 255, 100, 100, 255 }, 1, false, true, true },
+			{ "Cheater Nigger", { 255, 100, 100, 255 }, 1, false, true, true },
 			{ "Friend", { 100, 255, 100, 255 }, 0, true, false, true },
 			{ "Party", { 100, 50, 255, 255 }, 0, true, false, true },
-			{ "F2P", { 255, 255, 255, 255 }, 0, true, false, true }
+			{ "F2P Coon", { 255, 255, 255, 255 }, 0, true, false, true }
 		};
 
 		if (auto tSub = tRead.get_child_optional("Config"))
@@ -164,10 +164,10 @@ void CPlayerlistCore::LoadPlayerlist()
 		}
 
 		F::PlayerUtils.m_bLoad = false;
-		SDK::Output("Amalgam", "Loaded playerlist", { 175, 150, 255 }, OUTPUT_CONSOLE | OUTPUT_DEBUG | OUTPUT_TOAST | OUTPUT_MENU);
+		SDK::Output("SemataryHook", "Loaded playerlist", { 255, 0, 0 }, OUTPUT_CONSOLE | OUTPUT_DEBUG | OUTPUT_TOAST | OUTPUT_MENU);
 	}
 	catch (...)
 	{
-		SDK::Output("Amalgam", "Load playerlist failed", { 175, 150, 255, 127 }, OUTPUT_CONSOLE | OUTPUT_DEBUG);
+		SDK::Output("SemataryHook", "Load playerlist failed", { 255, 0, 0, 127 }, OUTPUT_CONSOLE | OUTPUT_DEBUG);
 	}
 }

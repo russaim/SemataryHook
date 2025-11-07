@@ -629,12 +629,12 @@ void CCritHack::Draw(CTFPlayer* pLocal)
 		}
 	}
 	else
-		H::Draw.StringOutlined(fFont, x, y += nTall, Vars::Colors::IndicatorTextBad.Value, Vars::Menu::Theme::Background.Value, align, std::format("Deal {} damage", ceilf(m_flDamageTilFlip)).c_str());
+		H::Draw.StringOutlined(fFont, x, y += nTall, Vars::Colors::IndicatorTextBad.Value, Vars::Menu::Theme::Background.Value, align, std::format("deal {} damage", ceilf(m_flDamageTilFlip)).c_str());
 	
 	if (m_iPotentialCrits > 0)
 	{
 		int iCrits = m_iAvailableCrits;
-		H::Draw.StringOutlined(fFont, x, y += nTall, Vars::Menu::Theme::Active.Value, Vars::Menu::Theme::Background.Value, align, std::format("{}{} / {} crits", iCrits, iCrits == BUCKET_ATTEMPTS ? "+" : "", m_iPotentialCrits).c_str());
+		H::Draw.StringOutlined(fFont, x, y += nTall, Vars::Menu::Theme::Active.Value, Vars::Menu::Theme::Background.Value, align, std::format("{}{} / {} potential crits", iCrits, iCrits == BUCKET_ATTEMPTS ? "+" : "", m_iPotentialCrits).c_str());
 		
 		if (m_iNextCrit && iCrits)
 		{
@@ -651,7 +651,7 @@ void CCritHack::Draw(CTFPlayer* pLocal)
 		auto tColor = m_iDesyncDamage < 0
 			? Vars::Menu::Theme::Active.Value.Lerp(Vars::Colors::IndicatorTextMid.Value, std::min(fabsf(m_iDesyncDamage) / 100, 1.f))
 			: Vars::Colors::IndicatorTextBad.Value;
-		H::Draw.StringOutlined(fFont, x, y += nTall, tColor, Vars::Menu::Theme::Background.Value, align, std::format("{}{} desync", m_iDesyncDamage > 0 ? "+" : "", m_iDesyncDamage).c_str());
+		H::Draw.StringOutlined(fFont, x, y += nTall, tColor, Vars::Menu::Theme::Background.Value, align, std::format("Damage desync {}{}", m_iDesyncDamage > 0 ? "+" : "", m_iDesyncDamage).c_str());
 	}
 
 

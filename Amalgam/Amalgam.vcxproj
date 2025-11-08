@@ -964,6 +964,7 @@
     <ClCompile Include="src\Hooks\CBaseAnimating_UpdateClientSideAnimation.cpp" />
     <ClCompile Include="src\Hooks\CBaseEntity_BaseInterpolatePart1.cpp" />
     <ClCompile Include="src\Hooks\CBaseEntity_EstimateAbsVelocity.cpp" />
+    <ClCompile Include="src\Hooks\CBasePlayer_CalcObserverView.cpp" />
     <ClCompile Include="src\Hooks\CInput_ValidateUserCmd.cpp" />
     <ClCompile Include="src\Hooks\CTFRocketLauncher_CheckReloadMisfire.cpp" />
     <ClCompile Include="src\Hooks\CTFPlayer_FireBullet.cpp" />
@@ -971,7 +972,7 @@
     <ClCompile Include="src\Hooks\CBaseEntity_SetAbsVelocity.cpp" />
     <ClCompile Include="src\Hooks\CBaseEntity_WorldSpaceCenter.cpp" />
     <ClCompile Include="src\Hooks\CBaseHudChatLine_InsertAndColorizeText.cpp" />
-    <ClCompile Include="src\Hooks\CBasePlayer_CalcPlayerView.cpp" />
+    <ClCompile Include="src\Hooks\CBasePlayer_CalcView.cpp" />
     <ClCompile Include="src\Hooks\CBasePlayer_CalcViewModelView.cpp" />
     <ClCompile Include="src\Hooks\CBasePlayer_ItemPostFrame.cpp" />
     <ClCompile Include="src\Hooks\CBaseViewModel_ShouldFlipViewModel.cpp" />
@@ -1077,7 +1078,7 @@
     <ClCompile Include="src\SDK\Helpers\Fonts\Fonts.cpp" />
     <ClCompile Include="src\SDK\Helpers\TraceFilters\TraceFilters.cpp" />
     <ClCompile Include="src\SDK\SDK.cpp" />
-    <ClCompile Include="src\Utils\ConVars\ConVars.cpp" />
+    <ClCompile Include="src\SDK\Helpers\ConVars\ConVars.cpp" />
     <ClCompile Include="src\Utils\CrashLog\CrashLog.cpp" />
     <ClCompile Include="src\Utils\Hooks\Hooks.cpp" />
     <ClCompile Include="src\Utils\Interfaces\Interfaces.cpp" />
@@ -1451,14 +1452,13 @@
     <ClInclude Include="src\SDK\Events\Events.h" />
     <ClInclude Include="src\SDK\Globals.h" />
     <ClInclude Include="src\SDK\Helpers\Draw\Draw.h" />
-    <ClInclude Include="src\SDK\Helpers\Draw\Icons.h" />
     <ClInclude Include="src\SDK\Helpers\Entities\Entities.h" />
     <ClInclude Include="src\SDK\Helpers\Fonts\Fonts.h" />
     <ClInclude Include="src\SDK\Helpers\Particles\Particles.h" />
     <ClInclude Include="src\SDK\Helpers\TraceFilters\TraceFilters.h" />
     <ClInclude Include="src\SDK\SDK.h" />
     <ClInclude Include="src\SDK\Vars.h" />
-    <ClInclude Include="src\Utils\ConVars\ConVars.h" />
+    <ClInclude Include="src\SDK\Helpers\ConVars\ConVars.h" />
     <ClInclude Include="src\Utils\CrashLog\CrashLog.h" />
     <ClInclude Include="src\Utils\Macros\Macros.h" />
     <ClInclude Include="src\Utils\Hash\FNV1A.h" />

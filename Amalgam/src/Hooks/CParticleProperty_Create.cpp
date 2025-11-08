@@ -36,7 +36,7 @@ MAKE_HOOK(CParticleProperty_Create_Name, S::CParticleProperty_Create_Name(), voi
         */
 
         auto pModel = pLocal->GetRenderedWeaponModel();
-        if (!pModel || rcx != &pModel->m_Particles())
+        if (!pModel || rcx != pModel->m_Particles())
             return CALL_ORIGINAL(rcx, pszParticleName, iAttachType, pszAttachmentName);
 
         bool bBlue = pLocal->m_iTeamNum() == TF_TEAM_BLUE;
@@ -146,7 +146,7 @@ MAKE_HOOK(CParticleProperty_Create_Point, S::CParticleProperty_Create_Point(), v
             for (auto pEntity : H::Entities.GetGroup(EntityEnum::WorldProjectile))
             {
                 auto pOwner = F::ProjSim.GetEntities(pEntity).second;
-                if (bValid = pLocal == pOwner && rcx == &pEntity->m_Particles())
+                if (bValid = pLocal == pOwner && rcx == pEntity->m_Particles())
                     break;
             }
             if (!bValid)

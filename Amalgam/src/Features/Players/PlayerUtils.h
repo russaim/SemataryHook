@@ -23,7 +23,7 @@ struct ListPlayer
 	bool m_bParty;
 	bool m_bF2P;
 	int m_iLevel;
-	uint64_t m_iParty;
+	int m_iParty;
 };
 
 struct PriorityLabel_t

@@ -188,7 +188,7 @@ void CTicks::Move(float accumulated_extra_samples, bool bFinalTick)
 	else
 		m_iWait = 2;
 
-	static auto sv_maxusrcmdprocessticks = U::ConVars.FindVar("sv_maxusrcmdprocessticks");
+	static auto sv_maxusrcmdprocessticks = H::ConVars.FindVar("sv_maxusrcmdprocessticks");
 	m_iMaxShift = sv_maxusrcmdprocessticks->GetInt();
 	if (Vars::Misc::Game::AntiCheatCompatibility.Value)
 		m_iMaxShift = std::min(m_iMaxShift, 8);
@@ -310,7 +310,7 @@ void CTicks::End(CTFPlayer* pLocal, CUserCmd* pCmd)
 
 bool CTicks::CanChoke()
 {
-	static auto sv_maxusrcmdprocessticks = U::ConVars.FindVar("sv_maxusrcmdprocessticks");
+	static auto sv_maxusrcmdprocessticks = H::ConVars.FindVar("sv_maxusrcmdprocessticks");
 	int iMaxTicks = sv_maxusrcmdprocessticks->GetInt();
 	if (Vars::Misc::Game::AntiCheatCompatibility.Value)
 		iMaxTicks = std::min(iMaxTicks, 8);
@@ -376,7 +376,7 @@ Vec3 CTicks::GetShootPos()
 
 void CTicks::SaveShootAngle(CUserCmd* pCmd, bool bSendPacket)
 {
-	static auto sv_maxusrcmdprocessticks_holdaim = U::ConVars.FindVar("sv_maxusrcmdprocessticks_holdaim");
+	static auto sv_maxusrcmdprocessticks_holdaim = H::ConVars.FindVar("sv_maxusrcmdprocessticks_holdaim");
 
 	if (bSendPacket)
 		m_bShootAngle = false;

@@ -28,7 +28,7 @@ static inline std::string GetProcessName(DWORD dwProcessID)
 
 static inline bool CheckDXLevel()
 {
-	auto mat_dxlevel = U::ConVars.FindVar("mat_dxlevel");
+	auto mat_dxlevel = H::ConVars.FindVar("mat_dxlevel");
 	if (mat_dxlevel->GetInt() < 90)
 	{
 		//const char* sMessage = "You are running with graphics options that SemataryHook does not support. -dxlevel must be at least 90.";
@@ -73,12 +73,17 @@ void CCore::Load()
 	}
 
 	float flTime = 0.f;
-	while (!U::Memory.FindSignature("client.dll", "48 8B 0D ? ? ? ? 48 8B 10 48 8B 19 48 8B C8 FF 92") || !SDK::GetTeamFortressWindow())
+	while (true)
 	{
+		auto uSignature = U::Memory.FindSignature("client.dll", "48 8B 0D ? ? ? ? 48 8B 10 48 8B 19 48 8B C8 FF 92");
+		auto hWindow = SDK::GetTeamFortressWindow();
+		if (uSignature && hWindow)
+			break;
+
 		Sleep(500), flTime += 0.5f;
 		if (m_bUnload = m_bFailed = flTime >= 60.f)
 		{
-			AppendFailText("Failed to load");
+			AppendFailText(std::format("Failed to load in time:\n  {:#x}\n  {:#x}", uSignature, uintptr_t(hWindow)).c_str());
 			return;
 		}
 		if (m_bUnload = m_bFailed = U::KeyHandler.Down(VK_F11, true))
@@ -94,7 +99,7 @@ void CCore::Load()
 	if (m_bUnload = m_bFailed2 = !U::Hooks.Initialize() || !U::BytePatches.Initialize() || !H::Events.Initialize())
 		return;
 	F::Materials.LoadMaterials();
-	U::ConVars.Unlock();
+	H::ConVars.Unlock();
 
 	F::Configs.LoadConfig(F::Configs.m_sCurrentConfig, false);
 
@@ -137,12 +142,12 @@ void CCore::Unload()
 			pLocal->ThirdPersonSwitch();
 		}
 	}
-	U::ConVars.FindVar("cl_wpn_sway_interp")->SetValue(0.f);
-	U::ConVars.FindVar("cl_wpn_sway_scale")->SetValue(0.f);
+	H::ConVars.FindVar("cl_wpn_sway_interp")->SetValue(0.f);
+	H::ConVars.FindVar("cl_wpn_sway_scale")->SetValue(0.f);
 
 	Sleep(250);
 	F::EnginePrediction.Unload();
-	U::ConVars.Restore();
+	H::ConVars.Restore();
 	F::Materials.UnloadMaterials();
 
 	if (m_bFailed2)

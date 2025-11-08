@@ -39,7 +39,7 @@
     <ClCompile Include="include\MinHook\hook.c" />
     <ClCompile Include="include\MinHook\trampoline.c" />
     <ClCompile Include="src\SDK\SDK.cpp" />
-    <ClCompile Include="src\Utils\ConVars\ConVars.cpp" />
+    <ClCompile Include="src\SDK\Helpers\ConVars\ConVars.cpp" />
     <ClCompile Include="src\Features\Commands\Commands.cpp" />
     <ClCompile Include="src\Features\ImGui\Render.cpp" />
     <ClCompile Include="src\Features\Aimbot\Aimbot.cpp" />
@@ -104,7 +104,7 @@
     <ClCompile Include="src\Hooks\CBaseEntity_SetAbsVelocity.cpp" />
     <ClCompile Include="src\Hooks\CBaseEntity_WorldSpaceCenter.cpp" />
     <ClCompile Include="src\Hooks\CBaseHudChatLine_InsertAndColorizeText.cpp" />
-    <ClCompile Include="src\Hooks\CBasePlayer_CalcPlayerView.cpp" />
+    <ClCompile Include="src\Hooks\CBasePlayer_CalcView.cpp" />
     <ClCompile Include="src\Hooks\CBasePlayer_CalcViewModelView.cpp" />
     <ClCompile Include="src\Hooks\CBasePlayer_ItemPostFrame.cpp" />
     <ClCompile Include="src\Hooks\CBaseViewModel_ShouldFlipViewModel.cpp" />
@@ -199,6 +199,7 @@
     <ClCompile Include="src\Hooks\CTFPlayer_GetMinFOV.cpp" />
     <ClCompile Include="src\Hooks\CWeaponMedigun_PrimaryAttack.cpp" />
     <ClCompile Include="src\Hooks\IMaterialSystem_FindTexture.cpp" />
+    <ClCompile Include="src\Hooks\CBasePlayer_CalcObserverView.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Utils\UtlVector\UtlVector.h" />
@@ -312,7 +313,6 @@
     <ClInclude Include="src\SDK\Definitions\Interfaces.h" />
     <ClInclude Include="src\SDK\Definitions\Types.h" />
     <ClInclude Include="src\SDK\Helpers\Draw\Draw.h" />
-    <ClInclude Include="src\SDK\Helpers\Draw\Icons.h" />
     <ClInclude Include="src\SDK\Helpers\Entities\Entities.h" />
     <ClInclude Include="src\SDK\Helpers\Fonts\Fonts.h" />
     <ClInclude Include="src\SDK\Globals.h" />
@@ -345,7 +345,7 @@
     <ClInclude Include="include\MinHook\buffer.h" />
     <ClInclude Include="include\MinHook\MinHook.h" />
     <ClInclude Include="include\MinHook\trampoline.h" />
-    <ClInclude Include="src\Utils\ConVars\ConVars.h" />
+    <ClInclude Include="src\SDK\Helpers\ConVars\ConVars.h" />
     <ClInclude Include="src\Features\Commands\Commands.h" />
     <ClInclude Include="src\SDK\Definitions\Interfaces\CTFPartyClient.h" />
     <ClInclude Include="src\SDK\Definitions\Steam\ISteamController.h" />

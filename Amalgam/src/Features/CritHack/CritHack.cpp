@@ -106,7 +106,7 @@ void CCritHack::UpdateWeaponInfo(CTFPlayer* pLocal, CTFWeaponBase* pWeapon)
 	if (pWeapon == pOldWeapon && flBucket == flLastBucket && iCritChecks == iLastCritChecks && iCritSeedRequests == iLastCritSeedRequests)
 		return;
 
-	static auto tf_weapon_criticals_bucket_cap = U::ConVars.FindVar("tf_weapon_criticals_bucket_cap");
+	static auto tf_weapon_criticals_bucket_cap = H::ConVars.FindVar("tf_weapon_criticals_bucket_cap");
 	const float flBucketCap = tf_weapon_criticals_bucket_cap->GetFloat();
 	bool bRapidFire = pWeapon->IsRapidFire();
 	float flFireRate = pWeapon->GetFireRate();

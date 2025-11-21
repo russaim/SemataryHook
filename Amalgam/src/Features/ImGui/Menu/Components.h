@@ -442,20 +442,24 @@ namespace ImGui
 		return vWrapped;
 	}
 
-	inline void FTooltip(const char* sTooltip, bool bCondition = IsItemHovered(), float flWrapWidth = 300, ImVec2* pPosOverride = nullptr, ImVec2* pSizeOverride = nullptr)
+	inline void FTooltip(const char* sTooltip, bool bCondition = IsItemHovered(), float flWrapWidth = 300, ImFont* pFont = F::Render.FontSmall, ImVec2* pPosOverride = nullptr, ImVec2* pSizeOverride = nullptr)
 	{
 		if (bCondition)
 		{
-			PushFont(F::Render.FontSmall);
+			PushFont(pFont);
 
 			ImDrawList* pDrawList = GetForegroundDrawList();
-			ImVec2 vPos = pPosOverride ? *pPosOverride : !vRowSizes.empty() ? vRowSizes.back().m_vPos : ImVec2();
+			ImVec2 vPos = pPosOverride ? *pPosOverride : !vRowSizes.empty() ? vRowSizes.back().m_vPos : ImVec2((GetItemRectMin().x + GetItemRectMax().x) / 2, GetItemRectMax().y);
 			ImVec2 vSize = pSizeOverride ? *pSizeOverride : !vRowSizes.empty() ? vRowSizes.back().m_vSize : ImVec2();
 
 			std::deque<std::string> vWraps = WrapText(sTooltip, H::Draw.Scale(flWrapWidth));
-			ImVec2 vText = { 0, H::Draw.Scale(9) + vWraps.size() * H::Draw.Scale(16) };
+			ImVec2 vText = { 0, H::Draw.Scale(9) };
 			for (auto& sText : vWraps)
-				vText.x = std::max(CalcTextSize(sText.c_str()).x, vText.x);
+			{
+				auto vSize = CalcTextSize(sText.c_str());
+				vText.x = std::max(vSize.x, vText.x);
+				vText.y += vSize.y + H::Draw.Scale(5);
+			}
 			vText.x += GetStyle().WindowPadding.x * 2;
 			if (fmodf(vText.x, 2.f))
 				vText.x += 1;
@@ -1881,7 +1885,7 @@ namespace ImGui
 		if (bTooltip)
 		{
 			vOriginalPos += GetDrawPos();
-			FTooltip(StripDoubleHash(sLabel).c_str(), IsItemHovered(), 300, &vOriginalPos, &vSize);
+			FTooltip(StripDoubleHash(sLabel).c_str(), IsItemHovered(), 300, F::Render.FontSmall, &vOriginalPos, &vSize);
 		}
 
 		return bReturn;

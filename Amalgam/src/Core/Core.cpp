@@ -43,14 +43,19 @@ static inline bool CheckDXLevel()
 
 void CCore::AppendFailText(const char* sMessage)
 {
+	if (m_ssFailStream.str().empty())
+	{
+		m_ssFailStream << "Built @ " __DATE__ ", " __TIME__ ", " __CONFIGURATION__ "\n";
+		m_ssFailStream << std::format("Time @ {}, {}\n", SDK::GetDate(), SDK::GetTime());
+		m_ssFailStream << "\n";
+	}
+
 	m_ssFailStream << std::format("{}\n", sMessage);
 	OutputDebugStringA(std::format("{}\n", sMessage).c_str());
 }
 
 void CCore::LogFailText()
 {
-	m_ssFailStream << "\nBuilt @ " __DATE__ ", " __TIME__ ", " __CONFIGURATION__ "\n";
-	m_ssFailStream << "Ctrl + C to copy. \n";
 	try
 	{
 		std::ofstream file;

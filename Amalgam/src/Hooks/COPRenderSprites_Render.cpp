@@ -78,7 +78,7 @@ MAKE_HOOK(COPRenderSprites_Render, S::COPRenderSprites_Render(), void,
         return CALL_ORIGINAL(rcx, pRenderContext, pParticles, pContext);
 #endif
 
-    if (!Vars::Visuals::Effects::DrawIconsThroughWalls.Value || Vars::Visuals::UI::CleanScreenshots.Value && I::EngineClient->IsTakingScreenshot())
+    if (!Vars::Visuals::Effects::DrawIconsThroughWalls.Value || SDK::CleanScreenshot())
         return CALL_ORIGINAL(rcx, pRenderContext, pParticles, pContext);
 
     bool bValid = false;
@@ -167,11 +167,11 @@ MAKE_HOOK(COPRenderSprites_RenderSpriteCard, S::COPRenderSprites_RenderSpriteCar
     void* rcx, void* meshBuilder, void* pCtx, SpriteRenderInfo_t& info, int hParticle, ParticleRenderData_t* pSortList, void* pCamera)
 {
 #ifdef DEBUG_HOOKS
-    if (!Vars::Hooks::COPRenderSprites_Render[DEFAULT_BIND])
+    if (!Vars::Hooks::COPRenderSprites_RenderSpriteCard[DEFAULT_BIND])
         return CALL_ORIGINAL(rcx, meshBuilder, pCtx, info, hParticle, pSortList, pCamera);
 #endif
 
-    if (!(Vars::Visuals::World::Modulations.Value & Vars::Visuals::World::ModulationsEnum::Particle) || Vars::Visuals::UI::CleanScreenshots.Value && I::EngineClient->IsTakingScreenshot())
+    if (!(Vars::Visuals::World::Modulations.Value & Vars::Visuals::World::ModulationsEnum::Particle) || SDK::CleanScreenshot())
         return CALL_ORIGINAL(rcx, meshBuilder, pCtx, info, hParticle, pSortList, pCamera);
 
     info.m_pRGB[((hParticle / 4) * info.m_nRGBStride) + 0].m128_f32[hParticle & 0x3] = Vars::Colors::ParticleModulation.Value.r / 255.f; // red
@@ -186,11 +186,11 @@ MAKE_HOOK(COPRenderSprites_RenderTwoSequenceSpriteCard, S::COPRenderSprites_Rend
     void* rcx, void* meshBuilder, void* pCtx, SpriteRenderInfo_t& info, int hParticle, ParticleRenderData_t* pSortList, void* pCamera)
 {
 #ifdef DEBUG_HOOKS
-    if (!Vars::Hooks::COPRenderSprites_Render[DEFAULT_BIND])
+    if (!Vars::Hooks::COPRenderSprites_RenderTwoSequenceSpriteCard[DEFAULT_BIND])
         return CALL_ORIGINAL(rcx, meshBuilder, pCtx, info, hParticle, pSortList, pCamera);
 #endif
 
-    if (!(Vars::Visuals::World::Modulations.Value &Vars::Visuals::World::ModulationsEnum::Particle) || Vars::Visuals::UI::CleanScreenshots.Value && I::EngineClient->IsTakingScreenshot())
+    if (!(Vars::Visuals::World::Modulations.Value &Vars::Visuals::World::ModulationsEnum::Particle) || SDK::CleanScreenshot())
         return CALL_ORIGINAL(rcx, meshBuilder, pCtx, info, hParticle, pSortList, pCamera);
 
     info.m_pRGB[((hParticle / 4) * info.m_nRGBStride) + 0].m128_f32[hParticle & 0x3] = Vars::Colors::ParticleModulation.Value.r / 255.f; // red

@@ -15,5 +15,6 @@ MAKE_HOOK(CInventoryManager_ShowItemsPickedUp, S::CInventoryManager_ShowItemsPic
 		CALL_ORIGINAL(rcx, true, true, true);
 		return false;
 	}
+
 	return CALL_ORIGINAL(rcx, bForce, bReturnToGame, bNoPanel);
 }

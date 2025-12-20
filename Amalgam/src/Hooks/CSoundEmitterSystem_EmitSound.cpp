@@ -148,7 +148,7 @@ MAKE_HOOK(S_StartDynamicSound, S::S_StartDynamicSound(), int,
 	StartSoundParams_t& params)
 {
 #ifdef DEBUG_HOOKS
-	if (!Vars::Hooks::CSoundEmitterSystem_EmitSound[DEFAULT_BIND])
+	if (!Vars::Hooks::S_StartDynamicSound[DEFAULT_BIND])
 		return CALL_ORIGINAL(params);
 #endif
 
@@ -164,7 +164,7 @@ MAKE_HOOK(S_StartSound, S::S_StartSound(), int,
 	StartSoundParams_t& params)
 {
 #ifdef DEBUG_HOOKS
-	if (!Vars::Hooks::CSoundEmitterSystem_EmitSound[DEFAULT_BIND])
+	if (!Vars::Hooks::S_StartSound[DEFAULT_BIND])
 		return CALL_ORIGINAL(params);
 #endif
 

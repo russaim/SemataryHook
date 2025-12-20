@@ -38,10 +38,8 @@ static inline bool CheckDXLevel()
 		//return false;
 		SDK::Output("SemataryHook", sMessage, DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
 		return false;
-		*/
 
-		const char* sMessage = "You are running with graphics options that SemataryHook does not support. It is recommended for -dxlevel to be at least 90.";
-		SDK::Output("SemataryHook", sMessage, DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
+	
 	}
 
 	return true;

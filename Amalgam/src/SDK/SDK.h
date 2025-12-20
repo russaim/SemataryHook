@@ -21,8 +21,8 @@
 #include "../Utils/Macros/Macros.h"
 #include <intrin.h>
 
-#define DEFAULT_COLOR		Color_t(175, 150, 255, 255)
-#define ALTERNATE_COLOR		Color_t(175, 150, 255, 127)
+#define DEFAULT_COLOR		Color_t(255, 0, 0, 255)
+#define ALTERNATE_COLOR		Color_t(255, 0, 0, 127)
 
 #define VK_0              0x30
 #define VK_1              0x31

@@ -102,10 +102,10 @@ void CPlayerlistCore::LoadPlayerlist()
 		F::PlayerUtils.m_vTags = {
 			{ "Default", { 200, 200, 200, 255 }, 0, false, false, true },
 			{ "Ignored", { 200, 200, 200, 255 }, -1, false, true, true },
-			{ "Cheater Nigger", { 255, 100, 100, 255 }, 1, false, true, true },
+			{ "Cheater", { 255, 100, 100, 255 }, 1, false, true, true },
 			{ "Friend", { 100, 255, 100, 255 }, 0, true, false, true },
 			{ "Party", { 100, 50, 255, 255 }, 0, true, false, true },
-			{ "F2P Coon", { 255, 255, 255, 255 }, 0, true, false, true }
+			{ "F2P", { 255, 255, 255, 255 }, 0, true, false, true }
 		};
 
 		if (auto tSub = tRead.get_child_optional("Config"))

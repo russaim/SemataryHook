@@ -73,11 +73,11 @@ void CPlayerlistCore::SavePlayerlist()
 		write_json(F::Configs.m_sCorePath + "Players.json", tWrite);
 
 		F::PlayerUtils.m_bSave = false;
-		SDK::Output("Amalgam", "Saved playerlist", DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
+		SDK::Output("SemataryHook", "Saved playerlist", DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
 	}
 	catch (...)
 	{
-		SDK::Output("Amalgam", "Save playerlist failed", ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_MENU | OUTPUT_DEBUG);
+		SDK::Output("SemataryHook", "Save playerlist failed", ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_MENU | OUTPUT_DEBUG);
 	}
 }
 
@@ -131,7 +131,7 @@ void CPlayerlistCore::LoadPlayerlist()
 			}
 		}
 		else
-			SDK::Output("Amalgam", "Playerlist config not found", ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_MENU | OUTPUT_DEBUG);
+			SDK::Output("SemataryHook", "Playerlist config not found", ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_MENU | OUTPUT_DEBUG);
 
 		if (auto tSub = tRead.get_child_optional("Tags"))
 		{
@@ -153,7 +153,7 @@ void CPlayerlistCore::LoadPlayerlist()
 			}
 		}
 		else
-			SDK::Output("Amalgam", "Playerlist tags not found", ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_MENU | OUTPUT_DEBUG);
+			SDK::Output("SemataryHook", "Playerlist tags not found", ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_MENU | OUTPUT_DEBUG);
 
 		if (auto tSub = tRead.get_child_optional("Aliases"))
 		{
@@ -167,13 +167,13 @@ void CPlayerlistCore::LoadPlayerlist()
 			}
 		}
 		else
-			SDK::Output("Amalgam", "Playerlist aliases not found", ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_MENU | OUTPUT_DEBUG);
+			SDK::Output("SemataryHook", "Playerlist aliases not found", ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_MENU | OUTPUT_DEBUG);
 
 		F::PlayerUtils.m_bLoad = false;
-		SDK::Output("Amalgam", "Loaded playerlist", DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
+		SDK::Output("SemataryHook", "Loaded playerlist", DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
 	}
 	catch (...)
 	{
-		SDK::Output("Amalgam", "Load playerlist failed", ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_MENU | OUTPUT_DEBUG);
+		SDK::Output("SemataryHook", "Load playerlist failed", ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_MENU | OUTPUT_DEBUG);
 	}
 }

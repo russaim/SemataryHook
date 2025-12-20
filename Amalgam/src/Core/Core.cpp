@@ -36,12 +36,12 @@ static inline bool CheckDXLevel()
 		U::Core.AppendFailText(sMessage);
 		SDK::Output("SemataryHook", sMessage, { 175, 150, 255 }, OUTPUT_CONSOLE | OUTPUT_DEBUG | OUTPUT_TOAST | OUTPUT_MENU);
 		//return false;
-		SDK::Output("Amalgam", sMessage, DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
+		SDK::Output("SemataryHook", sMessage, DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
 		return false;
 		*/
 
-		const char* sMessage = "You are running with graphics options that Amalgam does not support. It is recommended for -dxlevel to be at least 90.";
-		SDK::Output("Amalgam", sMessage, DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
+		const char* sMessage = "You are running with graphics options that SemataryHook does not support. It is recommended for -dxlevel to be at least 90.";
+		SDK::Output("SemataryHook", sMessage, DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
 	}
 
 	return true;
@@ -115,7 +115,7 @@ void CCore::Load()
 
 	F::Configs.LoadConfig(F::Configs.m_sCurrentConfig, false);
 
-	SDK::Output("Amalgam", "Loaded", DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
+	SDK::Output("SemataryHook", "Loaded", DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
 }
 
 void CCore::Loop()
@@ -168,5 +168,5 @@ void CCore::Unload()
 		return;
 	}
 
-	SDK::Output("Amalgam", "Unloaded", DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_DEBUG);
+	SDK::Output("SemataryHoook", "Unloaded", DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_DEBUG);
 }

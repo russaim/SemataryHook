@@ -411,6 +411,9 @@ void CTicks::Draw(CTFPlayer* pLocal)
 	if (!(Vars::Menu::Indicators.Value & Vars::Menu::IndicatorsEnum::Ticks) || !pLocal->IsAlive())
 		return;
 
+	static bool nitro_mode = true;
+
+
 	const DragBox_t dtPos = Vars::Menu::TicksDisplay.Value;
 	const auto& fFont = H::Fonts.GetFont(FONT_INDICATORS);
 
@@ -422,12 +425,22 @@ void CTicks::Draw(CTFPlayer* pLocal)
 	int iMax = std::max(m_iMaxUsrCmdProcessTicks - iAntiAimTicks, 0);
 
 	float flRatio = float(iTicks) / float(iMax);
-	int iSizeX = H::Draw.Scale(100, Scale_Round), iSizeY = H::Draw.Scale(12, Scale_Round);
+	int iSizeX = H::Draw.Scale(100, Scale_Round), iSizeY = H::Draw.Scale(8, Scale_Round);
 	int iPosX = dtPos.x - iSizeX / 2, iPosY = dtPos.y + fFont.m_nTall + H::Draw.Scale(4) + 1;
 
 	H::Draw.StringOutlined(fFont, dtPos.x, dtPos.y + 2, Vars::Menu::Theme::Active.Value, Vars::Menu::Theme::Background.Value, ALIGN_TOP, std::format("Ticks {} / {}", iTicks, iMax).c_str());
 	if (m_iWait)
 		H::Draw.StringOutlined(fFont, dtPos.x, dtPos.y + fFont.m_nTall + H::Draw.Scale(18, Scale_Round) + 1, Vars::Menu::Theme::Active.Value, Vars::Menu::Theme::Background.Value, ALIGN_TOP, "Not Ready");
+
+	if (nitro_mode)
+	{
+		H::Draw.LineRect(iPosX - 1, iPosY - 1, iSizeX + 2, iSizeY + 2, Color_t(15, 15, 15, 115)); //outline
+		H::Draw.FillRect(iPosX, iPosY, iSizeX, iSizeY, Color_t(15, 15, 15, 20)); // slight fill
+
+		H::Draw.FillRect(iPosX, iPosY, iSizeX * flRatio, iSizeY, Vars::Menu::Theme::Accent.Value); // bar
+
+		return;
+	}
 
 	H::Draw.LineRoundRect(iPosX, iPosY, iSizeX, iSizeY, H::Draw.Scale(4, Scale_Round), Vars::Menu::Theme::Accent.Value, 16);
 	if (flRatio)

@@ -47,7 +47,7 @@ static inline void StorePlayer(CTFPlayer* pPlayer, CTFPlayer* pLocal, Group_t* p
 			if (pGroup->m_iESP & ESPEnum::Priority)
 			{
 				if (auto pTag = F::PlayerUtils.GetSignificantTag(uAccountID, 1))
-					tCache.m_vText.emplace_back(ALIGN_TOP, pTag->m_sName, pTag->m_tColor, pTag->m_tColor.IsColorDark() ? Color_t(255, 255, 255) : Color_t(0, 0, 0));
+					tCache.m_vText.emplace_back(ALIGN_BOTTOM, pTag->m_sName, pTag->m_tColor, pTag->m_tColor.IsColorDark() ? Color_t(255, 255, 255) : Color_t(0, 0, 0));
 			}
 
 			if (pGroup->m_iESP & ESPEnum::Labels)
@@ -435,7 +435,7 @@ static inline void StoreBuilding(CBaseObject* pBuilding, CTFPlayer* pLocal, Grou
 		}
 		if (pGroup->m_iESP & ESPEnum::AmmoText)
 		{
-			tCache.m_vText.emplace_back(ALIGN_BOTTOMRIGHT, std::format("{}", iShells), Vars::Menu::Theme::Active.Value, Vars::Menu::Theme::Background.Value);
+			tCache.m_vText.emplace_back(ALIGN_BOTTOM, std::format("{}", iShells), Vars::Menu::Theme::Active.Value, Vars::Menu::Theme::Background.Value);
 			if (iMaxRockets)
 				tCache.m_vText.back().m_sText += std::format(", {}", iRockets);
 		}
@@ -818,7 +818,7 @@ void CESP::DrawPlayers()
 			};
 
 			int iSpace = H::Draw.Scale(4);
-			int iThickness = H::Draw.Scale(2, Scale_Round);
+			int iThickness = H::Draw.Scale(1, Scale_Round);
 			switch (iMode)
 			{
 			case ALIGN_LEFT:
@@ -921,7 +921,7 @@ void CESP::DrawBuildings()
 			};
 
 			int iSpace = H::Draw.Scale(4);
-			int iThickness = H::Draw.Scale(2, Scale_Round);
+			int iThickness = H::Draw.Scale(1, Scale_Round);
 			switch (iMode)
 			{
 			case ALIGN_LEFT:

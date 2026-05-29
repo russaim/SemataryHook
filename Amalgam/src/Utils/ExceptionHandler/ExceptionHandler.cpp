@@ -166,7 +166,7 @@ static LONG APIENTRY ExceptionFilter(PEXCEPTION_POINTERS ExceptionInfo)
 
 		ssErrorStream << "\n";
 		ssErrorStream << "Ctrl + C to copy. \n";
-		ssErrorStream << "Logged to Amalgam\\crash_log.txt. ";
+		ssErrorStream << "Logged to SemataryHook\\crash_log.txt. ";
 	}
 	catch (...) {}
 

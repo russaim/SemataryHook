@@ -7,8 +7,8 @@ void CFonts::Reload(float flDPI, bool bOutline)
 {
 	int iFlags = !bOutline ? FONTFLAG_ANTIALIAS : FONTFLAG_ANTIALIAS | FONTFLAG_DROPSHADOW;
 
-	m_mFonts[FONT_ESP] = { "Verdana", int(12.f * flDPI), iFlags, 0 };
-	m_mFonts[FONT_INDICATORS] = { "Verdana", int(13.f * flDPI), iFlags, 0 };
+	m_mFonts[FONT_ESP] = { "Impact", int(15.f * flDPI), iFlags, 0 };
+	m_mFonts[FONT_INDICATORS] = { "Impact", int(15.f * flDPI), iFlags, 0 };
 
 	for (auto& fFont : m_mFonts | std::views::values)
 	{

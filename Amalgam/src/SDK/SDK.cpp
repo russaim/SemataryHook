@@ -1,6 +1,6 @@
 #include "SDK.h"
 
-#include "../Features/Visuals/Notifications/Notifications.h"
+#include "../Features/ImGui/Notifications/Notifications.h"
 #include "../Features/ImGui/Menu/Menu.h"
 #include "../Features/EnginePrediction/EnginePrediction.h"
 
@@ -33,7 +33,7 @@ static BOOL CALLBACK TeamFortressWindow(HWND hWindow, LPARAM lParam)
 
 
 void SDK::Output(const char* sFunction, const char* sLog, Color_t tColor,
-	int iTo, int iMessageBox,
+	int iTo, const char* sIcon, int iMessageBox,
 	const char* sLeft, const char* sRight)
 {
 	if (sLog)
@@ -46,7 +46,7 @@ void SDK::Output(const char* sFunction, const char* sLog, Color_t tColor,
 		if (iTo & OUTPUT_DEBUG)
 			OutputDebugString(std::format("{}{}{} {}\n", sLeft, sFunction, sRight, sLog).c_str());
 		if (iTo & OUTPUT_TOAST)
-			F::Notifications.Add(sLog, tColor);
+			F::Notifications.Add(sLog, sIcon, tColor);
 		if (iTo & OUTPUT_MENU)
 			F::Menu.AddOutput(std::format("{}{}{}", sLeft, sFunction, sRight).c_str(), sLog, tColor);
 		if (iTo & OUTPUT_CHAT)
@@ -63,7 +63,7 @@ void SDK::Output(const char* sFunction, const char* sLog, Color_t tColor,
 		if (iTo & OUTPUT_DEBUG)
 			OutputDebugString(std::format("{}\n", sFunction).c_str());
 		if (iTo & OUTPUT_TOAST)
-			F::Notifications.Add(sFunction, tColor);
+			F::Notifications.Add(sFunction, sIcon, tColor);
 		if (iTo & OUTPUT_MENU)
 			F::Menu.AddOutput("", sFunction, tColor);
 		if (iTo & OUTPUT_CHAT)
@@ -564,8 +564,6 @@ int SDK::IsAttacking(CTFPlayer* pLocal, CTFWeaponBase* pWeapon, const CUserCmd* 
 
 	switch (pWeapon->GetWeaponID())
 	{
-	case TF_WEAPON_COMPOUND_BOW:
-		return !(pCmd->buttons & IN_ATTACK) && pWeapon->As<CTFPipebombLauncher>()->m_flChargeBeginTime() > 0.f;
 	case TF_WEAPON_PIPEBOMBLAUNCHER:
 	case TF_WEAPON_STICKY_BALL_LAUNCHER:
 	case TF_WEAPON_GRENADE_STICKY_BALL:
@@ -586,17 +584,16 @@ int SDK::IsAttacking(CTFPlayer* pLocal, CTFWeaponBase* pWeapon, const CUserCmd* 
 	}
 	case TF_WEAPON_SNIPERRIFLE_CLASSIC:
 		return !(pCmd->buttons & IN_ATTACK) && pWeapon->As<CTFSniperRifle>()->m_flChargedDamage() > 0.f;
+	case TF_WEAPON_COMPOUND_BOW:
+		return !(pCmd->buttons & IN_ATTACK) && pWeapon->As<CTFPipebombLauncher>()->m_flChargeBeginTime() > 0.f;
 	case TF_WEAPON_PARTICLE_CANNON:
-	{
-		float flChargeBeginTime = pWeapon->As<CTFParticleCannon>()->m_flChargeBeginTime();
-		if (flChargeBeginTime > 0)
+		if (float flChargeBeginTime = pWeapon->As<CTFParticleCannon>()->m_flChargeBeginTime(); flChargeBeginTime > 0)
 		{
 			float flTotalChargeTime = flTickBase - flChargeBeginTime;
 			if (flTotalChargeTime >= TF_PARTICLE_MAX_CHARGE_TIME)
 				return 1;
 		}
 		break;
-	}
 	case TF_WEAPON_CLEAVER: // we can randomly use attack2 to fire
 	case TF_WEAPON_JAR:
 	case TF_WEAPON_JAR_MILK:
@@ -664,6 +661,10 @@ int SDK::IsAttacking(CTFPlayer* pLocal, CTFWeaponBase* pWeapon, const CUserCmd* 
 		if (G::CanSecondaryAttack && pCmd->buttons & IN_ATTACK2)
 			return 1;
 		break;
+	case TF_WEAPON_MEDIGUN:
+		if (pWeapon->As<CWeaponMedigun>()->m_bHealing())
+			return false;
+		break;
 	}
 
 	switch (pWeapon->m_iItemDefinitionIndex())
@@ -691,6 +692,13 @@ int SDK::IsAttacking(CTFPlayer* pLocal, CTFWeaponBase* pWeapon, const CUserCmd* 
 	}
 
 	return G::CanPrimaryAttack && pCmd->buttons & IN_ATTACK ? 1 : G::Reloading && pCmd->buttons & IN_ATTACK ? 2 : 0;
+}
+
+float SDK::GetGravity()
+{
+	static auto sv_gravity = H::ConVars.FindVar("sv_gravity");
+
+	return sv_gravity->GetFloat();
 }
 
 float SDK::MaxSpeed(CTFPlayer* pPlayer, bool bIncludeCrouch, bool bIgnoreSpecialAbility)

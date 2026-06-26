@@ -19,11 +19,12 @@
 #include "../Utils/Math/Math.h"
 #include "../Utils/Timer/Timer.h"
 #include "../Utils/Macros/Macros.h"
+#include "../Features/ImGui/Fonts/MaterialDesign/IconDefinitions.h"
 #include <intrin.h>
 #include <random>
 
-#define DEFAULT_COLOR		Color_t(255, 0, 0, 255)
-#define ALTERNATE_COLOR		Color_t(255, 0, 0, 127)
+#define DEFAULT_COLOR		Color_t(175, 150, 255, 255)
+#define ALTERNATE_COLOR		Color_t(175, 150, 255, 127)
 
 #define VK_0              0x30
 #define VK_1              0x31
@@ -72,7 +73,7 @@
 namespace SDK
 {
 	void Output(const char* sFunction, const char* sLog = nullptr, Color_t tColor = { 255, 255, 255, 255 },
-		int iTo = OUTPUT_CONSOLE, int iMessageBox = -1,
+		int iTo = OUTPUT_CONSOLE, const char* sIcon = nullptr, int iMessageBox = MB_NONE,
 		const char* sLeft = "[", const char* sRight = "]");
 
 	void SetClipboard(const std::string& sString);
@@ -121,6 +122,7 @@ namespace SDK
 	const char* GetClassByIndex(const int nClass, bool bLower = true);
 
 	int IsAttacking(CTFPlayer* pLocal, CTFWeaponBase* pWeapon, const CUserCmd* pCmd, bool bTickBase = false);
+	float GetGravity();
 	float MaxSpeed(CTFPlayer* pPlayer, bool bIncludeCrouch = false, bool bIgnoreSpecialAbility = false);
 	float AttribHookValue(float value, const char* name, void* econent, void* buffer = nullptr, bool isGlobalConstString = true);
 

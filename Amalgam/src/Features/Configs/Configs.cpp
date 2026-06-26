@@ -392,7 +392,7 @@ static inline void LoadMain(BaseVar*& pBase, boost::property_tree::ptree& tTree)
 		}
 	}
 	else if (!(pVar->m_iFlags & NOSAVE))
-		SDK::Output("SemataryHook", std::format("{} not found", pVar->Name()).c_str(), ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_MENU | OUTPUT_DEBUG);
+		SDK::Output("Amalgam", std::format("{} not found", pVar->Name()).c_str(), ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_MENU | OUTPUT_DEBUG);
 }
 #define Load(t, j) if (IsType(t)) LoadMain<t>(pBase, j);
 
@@ -470,7 +470,7 @@ bool CConfigs::SaveConfig(const std::string& sConfigName, bool bNotify)
 				SaveJson(tChild, "OffscreenArrowsMaxDistance", tGroup.m_flOffscreenArrowsMaxDistance);
 				SaveJson(tChild, "PickupTimer", tGroup.m_bPickupTimer);
 				SaveJson(tChild, "Backtrack", tGroup.m_iBacktrack);
-				SaveJson(tChild, "BacktrackChams", tGroup.m_vBacktrackChams);
+				SaveJson(tChild, "BacktrackChams", tGroup.m_tBacktrackChams);
 				SaveJson(tChild, "BacktrackGlow", tGroup.m_tBacktrackGlow);
 				SaveJson(tChild, "Trajectory", tGroup.m_iTrajectory);
 				SaveJson(tChild, "Sightlines", tGroup.m_iSightlines);
@@ -486,11 +486,11 @@ bool CConfigs::SaveConfig(const std::string& sConfigName, bool bNotify)
 
 		m_sCurrentConfig = sConfigName; m_sCurrentVisuals = "";
 		if (bNotify)
-			SDK::Output("SemataryHook", std::format("Config {} saved", sConfigName).c_str(), DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
+			SDK::Output("Amalgam", std::format("Config {} saved", sConfigName).c_str(), DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
 	}
 	catch (...)
 	{
-		SDK::Output("SemataryHook", "Save config failed", ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_MENU | OUTPUT_DEBUG);
+		SDK::Output("Amalgam", "Save config failed", ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_MENU | OUTPUT_DEBUG);
 		return false;
 	}
 
@@ -538,7 +538,7 @@ bool CConfigs::LoadConfig(const std::string& sConfigName, bool bNotify)
 			}
 		}
 		else
-			SDK::Output("SemataryHook", "Config binds not found", ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_MENU | OUTPUT_DEBUG);
+			SDK::Output("Amalgam", "Config binds not found", ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_MENU | OUTPUT_DEBUG);
 
 		if (auto tSub = tRead.get_child_optional("Vars");
 			tSub || (tSub = tRead.get_child_optional("ConVars")))
@@ -563,7 +563,7 @@ bool CConfigs::LoadConfig(const std::string& sConfigName, bool bNotify)
 			}
 		}
 		else
-			SDK::Output("SemataryHook", "Config vars not found", ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_MENU | OUTPUT_DEBUG);
+			SDK::Output("Amalgam", "Config vars not found", ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_MENU | OUTPUT_DEBUG);
 
 		if (auto tSub = tRead.get_child_optional("Groups"))
 		{
@@ -586,7 +586,7 @@ bool CConfigs::LoadConfig(const std::string& sConfigName, bool bNotify)
 				LoadJson(tChild, "OffscreenArrowsMaxDistance", tGroup.m_flOffscreenArrowsMaxDistance);
 				LoadJson(tChild, "PickupTimer", tGroup.m_bPickupTimer);
 				LoadJson(tChild, "Backtrack", tGroup.m_iBacktrack);
-				LoadJson(tChild, "BacktrackChams", tGroup.m_vBacktrackChams);
+				LoadJson(tChild, "BacktrackChams", tGroup.m_tBacktrackChams);
 				LoadJson(tChild, "BacktrackGlow", tGroup.m_tBacktrackGlow);
 				LoadJson(tChild, "Trajectory", tGroup.m_iTrajectory);
 				LoadJson(tChild, "Sightlines", tGroup.m_iSightlines);
@@ -595,18 +595,18 @@ bool CConfigs::LoadConfig(const std::string& sConfigName, bool bNotify)
 			}
 		}
 		else
-			SDK::Output("SemataryHook", "Config groups not found", ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_MENU | OUTPUT_DEBUG);
+			SDK::Output("Amalgam", "Config groups not found", ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_MENU | OUTPUT_DEBUG);
 
 		F::Binds.SetVars(nullptr, nullptr, false);
 		H::Fonts.Reload();
 
 		m_sCurrentConfig = sConfigName; m_sCurrentVisuals = "";
 		if (bNotify)
-			SDK::Output("SemataryHook", std::format("Config {} loaded", sConfigName).c_str(), DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
+			SDK::Output("Amalgam", std::format("Config {} loaded", sConfigName).c_str(), DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
 	}
 	catch (...)
 	{
-		SDK::Output("SemataryHook", "Load config failed", ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_MENU | OUTPUT_DEBUG);
+		SDK::Output("Amalgam", "Load config failed", ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_MENU | OUTPUT_DEBUG);
 		return false;
 	}
 
@@ -679,7 +679,7 @@ bool CConfigs::SaveVisual(const std::string& sConfigName, bool bNotify)
 				SaveJson(tChild, "OffscreenArrowsMaxDistance", tGroup.m_flOffscreenArrowsMaxDistance);
 				SaveJson(tChild, "PickupTimer", tGroup.m_bPickupTimer);
 				SaveJson(tChild, "Backtrack", tGroup.m_iBacktrack);
-				SaveJson(tChild, "BacktrackChams", tGroup.m_vBacktrackChams);
+				SaveJson(tChild, "BacktrackChams", tGroup.m_tBacktrackChams);
 				SaveJson(tChild, "BacktrackGlow", tGroup.m_tBacktrackGlow);
 				SaveJson(tChild, "Trajectory", tGroup.m_iTrajectory);
 				SaveJson(tChild, "Sightlines", tGroup.m_iSightlines);
@@ -694,11 +694,11 @@ bool CConfigs::SaveVisual(const std::string& sConfigName, bool bNotify)
 		write_json(m_sVisualsPath + sConfigName + m_sConfigExtension, tWrite);
 
 		if (bNotify)
-			SDK::Output("SemataryHook", std::format("Visual config {} saved", sConfigName).c_str(), DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
+			SDK::Output("Amalgam", std::format("Visual config {} saved", sConfigName).c_str(), DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
 	}
 	catch (...)
 	{
-		SDK::Output("SemataryHook", "Save visuals failed", ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_MENU | OUTPUT_DEBUG);
+		SDK::Output("Amalgam", "Save visuals failed", ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_MENU | OUTPUT_DEBUG);
 		return false;
 	}
 	return true;
@@ -739,7 +739,7 @@ bool CConfigs::LoadVisual(const std::string& sConfigName, bool bNotify)
 			}
 		}
 		else
-			SDK::Output("SemataryHook", "Config vars not found", ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_MENU | OUTPUT_DEBUG);
+			SDK::Output("Amalgam", "Config vars not found", ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_MENU | OUTPUT_DEBUG);
 
 		if (auto tSub = tRead.get_child_optional("Groups"))
 		{
@@ -762,7 +762,7 @@ bool CConfigs::LoadVisual(const std::string& sConfigName, bool bNotify)
 				LoadJson(tChild, "OffscreenArrowsMaxDistance", tGroup.m_flOffscreenArrowsMaxDistance);
 				LoadJson(tChild, "PickupTimer", tGroup.m_bPickupTimer);
 				LoadJson(tChild, "Backtrack", tGroup.m_iBacktrack);
-				LoadJson(tChild, "BacktrackChams", tGroup.m_vBacktrackChams);
+				LoadJson(tChild, "BacktrackChams", tGroup.m_tBacktrackChams);
 				LoadJson(tChild, "BacktrackGlow", tGroup.m_tBacktrackGlow);
 				LoadJson(tChild, "Trajectory", tGroup.m_iTrajectory);
 				LoadJson(tChild, "Sightlines", tGroup.m_iSightlines);
@@ -771,17 +771,17 @@ bool CConfigs::LoadVisual(const std::string& sConfigName, bool bNotify)
 			}
 		}
 		else
-			SDK::Output("SemataryHook", "Config groups not found", ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_MENU | OUTPUT_DEBUG);
+			SDK::Output("Amalgam", "Config groups not found", ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_MENU | OUTPUT_DEBUG);
 
 		F::Binds.SetVars(nullptr, nullptr, false);
 
 		m_sCurrentVisuals = sConfigName;
 		if (bNotify)
-			SDK::Output("SemataryHook", std::format("Visual config {} loaded", sConfigName).c_str(), DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
+			SDK::Output("Amalgam", std::format("Visual config {} loaded", sConfigName).c_str(), DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
 	}
 	catch (...)
 	{
-		SDK::Output("SemataryHook", "Load visuals failed", ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_MENU | OUTPUT_DEBUG);
+		SDK::Output("Amalgam", "Load visuals failed", ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_MENU | OUTPUT_DEBUG);
 		return false;
 	}
 	return true;
@@ -811,11 +811,11 @@ void CConfigs::DeleteConfig(const std::string& sConfigName, bool bNotify)
 			LoadConfig("default", false);
 
 		if (bNotify)
-			SDK::Output("SemataryHook", std::format("Config {} deleted", sConfigName).c_str(), DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
+			SDK::Output("Amalgam", std::format("Config {} deleted", sConfigName).c_str(), DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
 	}
 	catch (...)
 	{
-		SDK::Output("SemataryHook", "Remove config failed", ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_MENU | OUTPUT_DEBUG);
+		SDK::Output("Amalgam", "Remove config failed", ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_MENU | OUTPUT_DEBUG);
 	}
 }
 
@@ -850,11 +850,11 @@ void CConfigs::ResetConfig(const std::string& sConfigName, bool bNotify)
 		H::Fonts.Reload();
 
 		if (bNotify)
-			SDK::Output("SemataryHook", std::format("Config {} reset", sConfigName).c_str(), DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
+			SDK::Output("Amalgam", std::format("Config {} reset", sConfigName).c_str(), DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
 	}
 	catch (...)
 	{
-		SDK::Output("SemataryHook", "Reset config failed", ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_MENU | OUTPUT_DEBUG);
+		SDK::Output("Amalgam", "Reset config failed", ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_MENU | OUTPUT_DEBUG);
 	}
 }
 
@@ -865,11 +865,11 @@ void CConfigs::DeleteVisual(const std::string& sConfigName, bool bNotify)
 		std::filesystem::remove(m_sVisualsPath + sConfigName + m_sConfigExtension);
 
 		if (bNotify)
-			SDK::Output("SemataryHook", std::format("Visual config {} deleted", sConfigName).c_str(), DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
+			SDK::Output("Amalgam", std::format("Visual config {} deleted", sConfigName).c_str(), DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
 	}
 	catch (...)
 	{
-		SDK::Output("SemataryHook", "Remove visuals failed", ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_MENU | OUTPUT_DEBUG);
+		SDK::Output("Amalgam", "Remove visuals failed", ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_MENU | OUTPUT_DEBUG);
 	}
 }
 
@@ -902,10 +902,10 @@ void CConfigs::ResetVisual(const std::string& sConfigName, bool bNotify)
 		F::Binds.SetVars(nullptr, nullptr, false);
 
 		if (bNotify)
-			SDK::Output("SemataryHook", std::format("Visual config {} reset", sConfigName).c_str(), DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
+			SDK::Output("Amalgam", std::format("Visual config {} reset", sConfigName).c_str(), DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
 	}
 	catch (...)
 	{
-		SDK::Output("SemataryHook", "Reset visuals failed", ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_MENU | OUTPUT_DEBUG);
+		SDK::Output("Amalgam", "Reset visuals failed", ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_MENU | OUTPUT_DEBUG);
 	}
 }

@@ -308,7 +308,7 @@ void COutput::TagsOnJoin(const char* sName, uint32_t uAccountID)
 	OutputInfo(Vars::Logging::Tags::LogTo.Value, "Tags",
 		std::format("{} has the {} {}", (sName), (vColorsTags.size() == 1 ? "tag" : "tags"), (sOutputText)).c_str(),
 		std::format("{}{}\x1 has the {} {}", (s_sYellow), (sName), (vColorsTags.size() == 1 ? "tag" : "tags"), (sChatText)).c_str(),
-		ICON_MD_INFO, INFO_COLOR
+		ICON_MD_INFO, Color_t(255, 0, 0)
 	);
 }
 void COutput::TagsChanged(const char* sName, const char* sAction, const char* sColor, const char* sTag)
@@ -320,7 +320,7 @@ void COutput::TagsChanged(const char* sName, const char* sAction, const char* sC
 	OutputInfo(Vars::Logging::Tags::LogTo.Value, "Tags",
 		std::format("{} tag {} {} {}", (sAction), (sTag), (uHash == FNV1A::Hash32Const("Added") ? "to" : "from"), (sName)).c_str(),
 		std::format("{} tag {}{}\x1 {} {}{}", (sAction), (sColor), (sTag), (uHash == FNV1A::Hash32Const("Added") ? "to" : "from"), (s_sYellow), (sName)).c_str(),
-		ICON_MD_INFO, INFO_COLOR
+		ICON_MD_INFO, Color_t(255, 0, 0)
 	);
 }
 
@@ -338,7 +338,7 @@ void COutput::AliasOnJoin(const char* sName, uint32_t uAccountID)
 	OutputInfo(Vars::Logging::Tags::LogTo.Value, "Aliases",
 		std::format("{} has the alias \"{}\"", (sName), (sAlias)).c_str(),
 		std::format("{}{}\x1 has the alias \"{}{}\x1\"", (s_sYellow), (sName), (s_sYellow), (sAlias)).c_str(),
-		ICON_MD_INFO, INFO_COLOR
+		ICON_MD_INFO, Color_t(255, 0, 0)
 	);
 }
 void COutput::AliasChanged(const char* sName, const char* sAction, const char* sAlias)
@@ -350,7 +350,7 @@ void COutput::AliasChanged(const char* sName, const char* sAction, const char* s
 	OutputInfo(Vars::Logging::Tags::LogTo.Value, "Aliases",
 		std::format("{} {}'s alias {} \"{}\"", (sAction), (sName), (uHash == FNV1A::Hash32Const("Changed") ? "to" : "of"), (sAlias)).c_str(),
 		std::format("{} {}{}\x1's alias {} \"{}{}\x1\"", (sAction), (s_sYellow), (sName), (uHash == FNV1A::Hash32Const("Changed") ? "to" : "of"), (s_sYellow), (sAlias)).c_str(),
-		ICON_MD_INFO, INFO_COLOR
+		ICON_MD_INFO, Color_t(255, 0, 0)
 	);
 }
 

@@ -40,7 +40,7 @@ static inline bool CheckDXLevel()
 		*/
 
 		const char* sMessage = "You are running with graphics options that Amalgam does not support. It is recommended for -dxlevel to be at least 90.";
-		SDK::Output("Amalgam", sMessage, WARNING_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG, ICON_MD_WARNING);
+		SDK::Output("Amalgam", sMessage, Color_t(255, 0, 0), OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG, ICON_MD_WARNING);
 	}
 
 	return true;
@@ -74,7 +74,7 @@ void CCore::LogFailText()
 	}
 	catch (...) {}
 
-	SDK::Output("Failed to load", m_ssFailStream.str().c_str(), {}, OUTPUT_DEBUG, nullptr, MB_OK | MB_ICONERROR);
+	SDK::Output("Failed to load", m_ssFailStream.str().c_str(), {}, OUTPUT_DEBUG, nullptr, MB_NONE | MB_ICONERROR);
 }
 
 void CCore::Load()
@@ -174,5 +174,5 @@ void CCore::Unload()
 		return;
 	}
 
-	SDK::Output("Amalgam", "Unloaded", INFO_COLOR, OUTPUT_CONSOLE | OUTPUT_DEBUG);
+	SDK::Output("Amalgam", "Unloaded", Color_t(255, 0, 0), OUTPUT_CONSOLE | OUTPUT_DEBUG);
 }

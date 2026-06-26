@@ -22,6 +22,7 @@
 #include "../Features/ImGui/Fonts/MaterialDesign/IconDefinitions.h"
 #include <intrin.h>
 #include <random>
+#include <windows.h>
 
 #define DEFAULT_COLOR		Color_t(175, 150, 255, 255)
 #define ALTERNATE_COLOR		Color_t(175, 150, 255, 127)
@@ -69,6 +70,8 @@
 #define OUTPUT_MENU 1 << 3
 #define OUTPUT_CHAT 1 << 4
 #define OUTPUT_PARTY 1 << 5
+
+#define MB_NONE -1
 
 namespace SDK
 {

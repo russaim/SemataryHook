@@ -31,7 +31,7 @@ static inline std::vector<Target_t> GetTargets(CTFPlayer* pLocal, CTFWeaponBase*
 	{
 		auto eGroup = EntityEnum::Invalid;
 		if (Vars::Aimbot::General::Target.Value & Vars::Aimbot::General::TargetEnum::Players)
-			eGroup = !F::AimbotGlobal.FriendlyFire() || Vars::Aimbot::General::Ignore.Value & Vars::Aimbot::General::IgnoreEnum::Team ? EntityEnum::PlayerEnemy : EntityEnum::PlayerAll;
+			eGroup = !SDK::FriendlyFire() || Vars::Aimbot::General::Ignore.Value & Vars::Aimbot::General::IgnoreEnum::Team ? EntityEnum::PlayerEnemy : EntityEnum::PlayerAll;
 		switch (pWeapon->GetWeaponID())
 		{
 		case TF_WEAPON_CROSSBOW:
@@ -1181,7 +1181,7 @@ bool CAimbotProjectile::TestAngle(const Vec3& vPoint, const Vec3& vAngles, int i
 	filter.iPlayer = iType == PointTypeEnum::Direct ? PLAYER_DEFAULT : PLAYER_NONE;
 	filter.bMisc = iType == PointTypeEnum::Direct;
 	int nMask = MASK_SOLID;
-	if (iType == PointTypeEnum::Direct && F::AimbotGlobal.FriendlyFire())
+	if (iType == PointTypeEnum::Direct && SDK::FriendlyFire())
 	{
 		switch (pWeapon->GetWeaponID())
 		{	// only weapons that actually hit teammates properly
@@ -2035,12 +2035,27 @@ bool CAimbotProjectile::RunMain(CTFPlayer* pLocal, CTFWeaponBase* pWeapon, CUser
 						pCmd->buttons &= ~IN_ATTACK;
 				}
 				break;
+			case TF_WEAPON_GRAPPLINGHOOK:
+				break;
 			default:
 				pCmd->buttons |= IN_ATTACK;
 			}
 		}
 
-		F::Aimbot.m_bRan = G::Attacking = SDK::IsAttacking(pLocal, pWeapon, pCmd, true);
+		if (nWeaponID != TF_WEAPON_GRAPPLINGHOOK)
+			F::Aimbot.m_bRan = G::Attacking = SDK::IsAttacking(pLocal, pWeapon, pCmd, true);
+		else
+		{
+			Vec3 vOriginalAngles = pCmd->viewangles; int iOriginalButtons = pCmd->buttons;
+			pCmd->viewangles = tTarget.m_vAngleTo, pCmd->buttons |= IN_ATTACK;
+			F::Aimbot.m_bRan = G::Attacking = SDK::IsAttacking(pLocal, pWeapon, pCmd, true);
+			pCmd->viewangles = vOriginalAngles, pCmd->buttons = iOriginalButtons;
+			if (!G::Attacking)
+				continue;
+
+			if (Vars::Aimbot::General::AutoShoot.Value)
+				pCmd->buttons |= IN_ATTACK;
+		}
 		DrawVisuals(iResult, tTarget, m_vPlayerPath, m_vProjectilePath, m_vBoxes);
 
 		Aim(pCmd, tTarget.m_vAngleTo);

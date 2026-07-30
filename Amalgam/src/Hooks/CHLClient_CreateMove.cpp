@@ -15,7 +15,7 @@
 #include "../Features/Spectate/Spectate.h"
 #include "../Features/AntiCheatCompatibility/AntiCheatCompatibility.h"
 
-static no_inline void UpdateInfo(CTFPlayer* pLocal, CTFWeaponBase* pWeapon, CUserCmd* pCmd)
+static void UpdateInfo(CTFPlayer* pLocal, CTFWeaponBase* pWeapon, CUserCmd* pCmd)
 {
 	G::PSilentAngles = G::SilentAngles = G::Attacking = G::Throwing = false;
 	G::LastUserCmd = G::CurrentUserCmd ? G::CurrentUserCmd : pCmd;

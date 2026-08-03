@@ -4,6 +4,11 @@
 #include <ImGui/TextEditor.h>
 #include <mutex>
 
+#include "../../../Utils/ImageManager/imagemanager.h"
+
+inline TextureType sematary_sit   = nullptr;
+inline TextureType  sematary_stand = nullptr;
+
 struct Output_t
 {
 	std::string m_sFunction;

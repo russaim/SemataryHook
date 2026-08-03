@@ -1090,6 +1090,7 @@
     <ClCompile Include="src\SDK\Helpers\ConVars\ConVars.cpp" />
     <ClCompile Include="src\Utils\ExceptionHandler\ExceptionHandler.cpp" />
     <ClCompile Include="src\Utils\Hooks\Hooks.cpp" />
+    <ClCompile Include="src\Utils\ImageManager\imagemanager.cpp" />
     <ClCompile Include="src\Utils\Interfaces\Interfaces.cpp" />
     <ClCompile Include="src\Utils\KeyHandler\KeyHandler.cpp" />
     <ClCompile Include="src\Utils\Memory\Memory.cpp" />
@@ -1217,6 +1218,7 @@
     <ClInclude Include="include\MinHook\hde\table64.h" />
     <ClInclude Include="include\MinHook\MinHook.h" />
     <ClInclude Include="include\MinHook\trampoline.h" />
+    <ClInclude Include="include\stb_image\stb_image.h" />
     <ClInclude Include="src\BytePatches\BytePatches.h" />
     <ClInclude Include="src\Features\Aimbot\Aimbot.h" />
     <ClInclude Include="src\Features\Aimbot\AimbotGlobal\AimbotGlobal.h" />
@@ -1230,6 +1232,8 @@
     <ClInclude Include="src\Features\AntiCheatCompatibility\AntiCheatCompatibility.h" />
     <ClInclude Include="src\Features\Debug\Debug.h" />
     <ClInclude Include="src\Features\ImGui\Easings\Easings.h" />
+    <ClInclude Include="src\Features\ImGui\Images\sematary_sit.h" />
+    <ClInclude Include="src\Features\ImGui\Images\sematary_stand.h" />
     <ClInclude Include="src\Features\Output\Output.h" />
     <ClInclude Include="src\Features\Misc\AutoQueue\AutoQueue.h" />
     <ClInclude Include="src\Features\Backtrack\Backtrack.h" />
@@ -1502,6 +1506,7 @@
     <ClInclude Include="src\SDK\Vars.h" />
     <ClInclude Include="src\SDK\Helpers\ConVars\ConVars.h" />
     <ClInclude Include="src\Utils\ExceptionHandler\ExceptionHandler.h" />
+    <ClInclude Include="src\Utils\ImageManager\imagemanager.h" />
     <ClInclude Include="src\Utils\Macros\Macros.h" />
     <ClInclude Include="src\Utils\Hash\FNV1A.h" />
     <ClInclude Include="src\Utils\Hooks\Hooks.h" />

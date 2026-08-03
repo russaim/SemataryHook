@@ -18,6 +18,26 @@ void CMenu::DrawMenu()
 {
 	using namespace ImGui;
 
+	auto fDrawList = GetForegroundDrawList();
+	auto bDrawList = GetBackgroundDrawList();
+
+	if (sematary_stand)
+    {
+        float  flImageSize = H::Draw.Scale(900);
+        ImVec2 displaySize = GetIO().DisplaySize;
+        ImVec2 vImagePos   = ImVec2(
+            displaySize.x - flImageSize - H::Draw.Scale(-260), 
+            displaySize.y - flImageSize + H::Draw.Scale(42)  
+        );
+
+        bDrawList->AddImage(
+            (ImTextureID)sematary_stand,
+            vImagePos,
+            vImagePos + ImVec2(flImageSize, flImageSize),
+            ImVec2(0, 0), ImVec2(1, 1),
+            IM_COL32(255, 255, 255, 255));
+    }
+
 	if (static bool bSetPosition = false; !bSetPosition)
 	{
 		SetNextWindowPos((GetIO().DisplaySize - ImVec2(H::Draw.Scale(750), H::Draw.Scale(500))) / 2, ImGuiCond_FirstUseEver);
@@ -34,6 +54,22 @@ void CMenu::DrawMenu()
 		float flSize = H::Draw.Scale(140);
 		float flInset = H::Draw.Scale();
 		float flOffset = 0.f;
+
+		if (sematary_sit)
+        {
+            float flImageSize = H::Draw.Scale(400); 
+
+            ImVec2 vWindowPos = GetWindowPos();
+
+            ImVec2 vImagePos = vWindowPos + ImVec2(vWindowSize.x - flImageSize - H::Draw.Scale(5), H::Draw.Scale(-215));
+
+			fDrawList->AddImage(
+                (ImTextureID)sematary_sit,
+                vImagePos,
+                vImagePos + ImVec2(flImageSize, flImageSize),
+                ImVec2(0, 0), ImVec2(1, 1),
+                IM_COL32(255, 255, 255, 255));
+        }
 
 		Bind_t tBind;
 		if (!F::Binds.GetBind(CurrentBind, &tBind))

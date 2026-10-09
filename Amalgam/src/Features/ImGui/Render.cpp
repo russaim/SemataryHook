@@ -10,6 +10,10 @@
 #include "Menu/Menu.h"
 #include "Menu/Components.h"
 
+
+#include "Images/sematary_sit.h"
+#include "Images/sematary_stand.h"
+
 void CRender::Render(IDirect3DDevice9* pDevice)
 {
 	static std::once_flag tFlag; std::call_once(tFlag, [&]
@@ -133,6 +137,13 @@ void CRender::LoadStyle()
 	style.WindowRounding = H::Draw.Scale(4);
 }
 
+void CRender::LoadImages(IDirect3DDevice9* pDevice) {
+	imagemanager.pDevice = pDevice;
+	
+	LOAD_IMAGE(sematary_stand_b, sematary_stand);
+    LOAD_IMAGE(sematary_sit_b, sematary_sit);
+}
+
 void CRender::Initialize(IDirect3DDevice9* pDevice)
 {
 	ImGui::CreateContext();
@@ -143,6 +154,8 @@ void CRender::Initialize(IDirect3DDevice9* pDevice)
 	//io.IniFilename = nullptr;
 	io.LogFilename = nullptr;
 
+
+	LoadImages(pDevice);
 	LoadFonts();
 	LoadStyle();
 

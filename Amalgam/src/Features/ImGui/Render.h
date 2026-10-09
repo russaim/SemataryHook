@@ -3,6 +3,8 @@
 #include <ImGui/imgui_impl_dx9.h>
 #include <ImGui/imgui.h>
 
+
+
 class CRender
 {
 public:
@@ -13,6 +15,7 @@ public:
 	void LoadColors();
 	void LoadFonts();
 	void LoadStyle();
+    void LoadImages(IDirect3DDevice9* pDevice);
 
 	int Cursor = 2;
 

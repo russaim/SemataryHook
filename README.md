@@ -1,6 +1,8 @@
 <div align="center">
 
-
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/ade3cca4-8f41-4faf-a8f1-799561833400" width="250" alt="Sematary Hook">
+</p>
 
 
   <sub>AVX2 may be faster than SSE2 though not all CPUs support it (`Steam > Help > System Information > Processor Information > AVX2`). Freetype uses freetype as the text rasterizer and includes some custom fonts, which results in better looking text but larger DLL sizes. PDBs are for developer use. </sub>
@@ -11,3 +13,6 @@
 
 
 </div>
+
+
+<img width="2208" height="1440" alt="image" src="https://github.com/user-attachments/assets/6096ef00-009b-4dad-abc4-bca4b4250d27" />

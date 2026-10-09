@@ -1,7 +1,8 @@
 <div align="center">
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/ade3cca4-8f41-4faf-a8f1-799561833400" width="250" alt="Sematary Hook">
+  <img src="
+    " width="250" alt="Sematary Hook">
 </p>
 
 
